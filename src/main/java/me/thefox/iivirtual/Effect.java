@@ -42,4 +42,8 @@ public class Effect
     {
         return Instant.now().getEpochSecond() < ending;
     }
+    public IIInfo GetType()
+    {
+        return type;
+    }
 }
