@@ -2,7 +2,10 @@ package me.thefox.iivirtual;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.block.BrewingStand;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
@@ -109,6 +112,10 @@ public class IIPlayer
             else {
                 effectsToRemove.add(effects.get(i));
             }
+            for (int j = 0; j < effectsToRemove.size(); j++)
+            {
+
+            }
         }
     }
 
@@ -119,7 +126,7 @@ public class IIPlayer
             Bukkit.getPlayer(uuid).addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 5, 1));
         }
         else {
-            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding  player to effect]");
+            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding player to effect]");
         }
     }
     private void effectBroken_Back()
@@ -128,20 +135,21 @@ public class IIPlayer
     }
     private void effectBroken_LeftArm()
     {
-
+        IIVirtual.dropHand(uuid);
     }
     private void effectBroken_RightArm()
     {
-
+        IIVirtual.dropHand(uuid);
     }
     private void effectBroken_Leg()
     {
         if (Bukkit.getPlayer(uuid) != null)
         {
-            Bukkit.getPlayer(uuid).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5, 1));
+            float baseSpeed = Bukkit.getPlayer(uuid).getWalkSpeed();
+            Bukkit.getPlayer(uuid).setWalkSpeed(baseSpeed * 0.5f);
         }
         else {
-            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding  player to effect]");
+            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding player to effect]");
         }
     }
     private void effectConcussion()
@@ -151,7 +159,7 @@ public class IIPlayer
             Bukkit.getPlayer(uuid).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 5, 1));
         }
         else {
-            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding  player to effect]");
+            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding player to effect]");
         }
     }
     private void effectHeadache()
@@ -161,17 +169,18 @@ public class IIPlayer
             Bukkit.getPlayer(uuid).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 5, 1));
         }
         else {
-            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding  player to effect]");
+            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding player to effect]");
         }
     }
     private void effectLegless()
     {
         if (Bukkit.getPlayer(uuid) != null)
         {
-            Bukkit.getPlayer(uuid).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5, 3));
+            float baseSpeed = Bukkit.getPlayer(uuid).getWalkSpeed();
+            Bukkit.getPlayer(uuid).setWalkSpeed(baseSpeed * 0.1f);
         }
         else {
-            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding  player to effect]");
+            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding player to effect]");
         }
     }
     private void effectMaimed()
@@ -180,20 +189,21 @@ public class IIPlayer
     }
     private void effectMissing_LeftArm()
     {
-
+        IIVirtual.dropHand(uuid);
     }
     private void effectMissing_RightArm()
     {
-
+        IIVirtual.dropHand(uuid);
     }
     private void effectOne_Legged()
     {
         if (Bukkit.getPlayer(uuid) != null)
         {
-            Bukkit.getPlayer(uuid).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5, 2));
+            float baseSpeed = Bukkit.getPlayer(uuid).getWalkSpeed();
+            Bukkit.getPlayer(uuid).setWalkSpeed(baseSpeed * 0.5f);
         }
         else {
-            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding  player to effect]");
+            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding player to effect]");
         }
     }
     private void effectTemporary_Blindness()
@@ -203,7 +213,7 @@ public class IIPlayer
             Bukkit.getPlayer(uuid).addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 5, 1));
         }
         else {
-            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding  player to effect]");
+            Commands.console.sendMessage(ChatColor.RED + "Something went wrong [finding player to effect]");
         }
     }
 }

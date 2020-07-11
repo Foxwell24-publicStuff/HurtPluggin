@@ -9,5 +9,5 @@ commands:
     description: List all mod stuffs
     usage: /<command>
   IIADD:
-    description: Add a arm
-    usage: /<command> [Player] [Something]
+    description: Add a thing
+    usage: /<command> [Player] [Something] [duration in secconds]

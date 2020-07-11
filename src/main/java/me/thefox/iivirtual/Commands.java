@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Commands
 {
-    IIPlayerList players;
+    static IIPlayerList players;
     public static ConsoleCommandSender console;
 
     public Commands(IIPlayerList players, ConsoleCommandSender console)
@@ -71,6 +71,9 @@ public class Commands
                             {
                                 iiPlayer.addEffect(new Effect(IIInfo.lookup(args[1]), Long.parseLong(args[2])));
                             }
+                            else {
+                                sender.sendMessage(ChatColor.RED + "Correct usage: /IIADD <Player> <Type> <Duration>");
+                            }
                             iiPlayer.addIiInfo(IIInfo.lookup(args[1]));
                             sender.sendMessage(
                                     ChatColor.GREEN +
@@ -106,7 +109,7 @@ public class Commands
         return returner;
     }
 
-    IIPlayer GetPlayer(String name)
+    public static IIPlayer GetPlayer(String name)
     {
         for (int i = 0; i < players.iiPlayers.size(); i++)
         {

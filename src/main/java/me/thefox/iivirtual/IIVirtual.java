@@ -1,13 +1,17 @@
 package me.thefox.iivirtual;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.event.Listener;
 
@@ -27,9 +31,28 @@ public final class IIVirtual extends JavaPlugin implements Listener
         ArrayList<IIPlayer> iPlayers = new ArrayList<>();
         players = new IIPlayerList(iPlayers);
         console.sendMessage(ChatColor.RED + "------------------------");
+        AsyncTasks();
         console.sendMessage(ChatColor.GREEN + "II Started");
         console.sendMessage(ChatColor.RED + "------------------------");
         commandManager = new Commands(players, console);
+    }
+    private void AsyncTasks()
+    {
+        int sec = 3;
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < players.iiPlayers.size(); i++)
+                {
+                    players.iiPlayers.get(i).doEffects();
+                }
+            }
+        }, 20L * sec, 20L * sec);
+    }
+    public static void dropHand(String uuid)
+    {
+        ItemStack hand = Bukkit.getPlayer(uuid).getInventory().getItemInMainHand();
+        Bukkit.getPlayer(uuid).getWorld().dropItem(Bukkit.getPlayer(uuid).getLocation(), hand);
     }
 
     @EventHandler
@@ -88,6 +111,16 @@ public final class IIVirtual extends JavaPlugin implements Listener
         }
         return null;
     }
+    @EventHandler
+    public void onHit(EntityDamageByEntityEvent e) {
+        if (e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
+            Player whoWasHit = (Player) e.getEntity();
+            Player whoHit = (Player) e.getDamager();
+
+            Commands.GetPlayer(whoWasHit.getName()).addEffect(new Effect(IIInfo.Maimed, 120));
+        }
+    }
+
 
     @Override
     public void onEnable()
